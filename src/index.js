@@ -16,7 +16,7 @@ function getBikes(location) {
     }
   });
 
-  const url = `https://bikeindex.org:443/api/v3/search?location=${location}&distance=3&stolenness=proximity`;
+  const url = `https://bikeindex.org:443/api/v3/search?per_page=100&location=${location}&distance=3&stolenness=proximity`;
   request.open("GET", url, true);
   request.send();
 }
@@ -26,20 +26,48 @@ function printBikes(response) {
   for (let index = 0; index < array.length; index++) {
     const element = array[index];
     const date = new Date(element.date_stolen * 1000);
-    const bike = document.createElement('li');
-    bike.append(`${element.stolen_location} ${date} ${element.title}`);
-    document.querySelector('ol').append(bike);
+    if (Date.now() - date.valueOf() <= 2.628e+9) {
+      const bike = document.createElement('li');
+      const br = document.createElement('br');
+      let colors = '';
+      element.frame_colors.forEach(element => {
+        colors = `${colors}${element}, `;
+      });
+      colors = colors.slice(0, colors.length - 2);
+      bike.innerText = `${element.title}
+        Date stolen: ${date}
+        Location: ${element.stolen_location}
+        Description: ${element.description}
+        Model: ${element.frame_model}
+        Manufacturer: ${element.manufacturer_name}
+        Year: ${element.year}
+        Color(s): ${colors}
+        Serial number: ${element.serial}
+        Status: ${element.status}`;
+      // if (element.thumb != null) {
+      //   const img = document.createElement('img');
+      //   img.setAttribute('src', `${element.thumb}`);
+      //   bike.prepend(img);
+      // }
+      document.querySelector('ol').append(bike);
+      document.querySelector('ol').append(br);
+    }
+  }
+  if (document.querySelector('ol').innerText === '') {
+    document.querySelector('p').innerText = 'No bikes stolen in the past month.';
   }
 }
 
 function printError(request, response, location) {
-  document.querySelector('p').innerText = `There was an error accessing the weather data for ${location}: ${request.status} ${request.statusText}: ${response.error}`;
+  document.querySelector('p').innerText = `There was an error accessing bike data for ${location}: ${request.status} ${request.statusText}: ${response.error}`;
 }
 
 function handleForm(event) {
   event.preventDefault();
   const location = document.querySelector('#location').value;
   document.querySelector('#location').value = null;
+  document.querySelector('ol').innerText = null;
+  document.querySelector('p').innerText = null;
   getBikes(location);
 }
 
