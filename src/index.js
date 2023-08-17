@@ -8,7 +8,7 @@ function getBikes(location) {
   request.addEventListener("loadend", function() {
     const response = JSON.parse(this.responseText);
     if (this.status === 200) {
-      printBikes(response);
+      printBikes(response, location);
     } else {
       printError(this, response, location);
     }
@@ -19,7 +19,7 @@ function getBikes(location) {
   request.send();
 }
 
-function printBikes(response) {
+function printBikes(response, location) {
   const array = response.bikes;
   for (let index = 0; index < array.length; index++) {
     const element = array[index];
@@ -56,7 +56,12 @@ function printBikes(response) {
     }
   }
   if (document.querySelector('ol').innerText === '') {
-    document.querySelector('p').innerText = 'No bikes stolen in the past month.';
+    document.querySelector('p').innerText = `No bikes stolen in the past month in or near ${location}.`;
+  }
+  else {
+    const br = document.createElement('br');
+    document.querySelector('p').prepend(`Bikes stolen in the past month in or near ${location}:`);
+    document.querySelector('p').append(br);
   }
 }
 
