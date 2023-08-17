@@ -27,6 +27,7 @@ function printBikes(response) {
     if (Date.now() - date.valueOf() <= 2.628e+9) {
       const bike = document.createElement('li');
       const br = document.createElement('br');
+      const link = document.createElement('a');
       let colors = '';
       element.frame_colors.forEach(element => {
         colors = `${colors}${element}, `;
@@ -40,7 +41,11 @@ function printBikes(response) {
         Manufacturer: ${element.manufacturer_name}
         Year: ${element.year}
         Color(s): ${colors}
-        Serial number: ${element.serial}`;
+        Serial number: ${element.serial}
+        Link: `;
+      link.setAttribute('href', element.url);
+      link.innerText = element.url;
+      bike.append(link);
       // if (element.thumb != null) {
       //   const img = document.createElement('img');
       //   img.setAttribute('src', `${element.thumb}`);
