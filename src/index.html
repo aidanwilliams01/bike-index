@@ -4,10 +4,17 @@
   <title>Bike Index</title>
 </head>
 <body>
+  <h3>Stolen Bike Index</h3>
+  <!-- <h5>See a list of bikes stolen in a given location.</h5> -->
+  <br>
   <form>
     <label for="location">Location:</label>
-    <input id="location" type="text" name="location" placeholder="Enter US ZIP code">
+    <input id="location" type="text" name="location">
     <button type="submit" class="btn-success" id="weatherLocation">Get Bikes</button>
+    <br>
+    <small id="helpBlock" class="form-text text-muted">
+      Enter address, ZIP code, city, or latitude and longitude. 
+    </small>
   </form>
   <br>
   <p id="showResponse"><ol></ol></p>

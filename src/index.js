@@ -1,5 +1,3 @@
-// import Triangle from './js/triangle.js';
-// import Rectangle from './js/rectangle.js';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/styles.css';
@@ -42,8 +40,7 @@ function printBikes(response) {
         Manufacturer: ${element.manufacturer_name}
         Year: ${element.year}
         Color(s): ${colors}
-        Serial number: ${element.serial}
-        Status: ${element.status}`;
+        Serial number: ${element.serial}`;
       // if (element.thumb != null) {
       //   const img = document.createElement('img');
       //   img.setAttribute('src', `${element.thumb}`);
