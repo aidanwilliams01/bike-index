@@ -46,6 +46,7 @@ function printBikes(response, location) {
       link.setAttribute('href', element.url);
       link.innerText = element.url;
       bike.append(link);
+      // code below adds bike thumbnail to results
       // if (element.thumb != null) {
       //   const img = document.createElement('img');
       //   img.setAttribute('src', `${element.thumb}`);
